@@ -1,24 +1,19 @@
 <x-layout title="Episodes">
-    @isset($mensagem)
-    <div class="alert alert-success">
-        {{ $mensagem }}
-    </div>
-    @endisset
-    <form method="POST">
-    @csrf
-    <ul>
-        @foreach ($episodes as $episode)
-            <li>
-                Episode {{ $episode->number }}
-                <input type="checkbox" name="episodes[]" value="{{ $episode->id }}"
-                @if ($episode->watched) checked @endif />
-            </li>
-        @endforeach
-    </ul>
-    <button type="submit">Salvar</button>
-    </form>
+    <form method="post">
+        @csrf
+        <ul class="list-group">
+            @foreach ($episodes as $episode)
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Episódio {{ $episode->number }}
 
-    <script>
-        const episodes = {{ Js::from($episodes) }};
-    </script>
+                    <input type="checkbox"
+                           name="episodes[]"
+                           value="{{ $episode->id }}"
+                           @if ($episode->watched) checked @endif />
+                </li>
+            @endforeach
+        </ul>
+
+        <button class="btn btn-primary mt-2 mb-2">Salvar</button>
+    </form>
 </x-layout>

@@ -13,7 +13,7 @@
             </div>
 
             <div class="col-2">
-                <label for="episodes" class="form-label">Episodes</label>
+                <label for="episodes" class="form-label">Episodes per season</label>
                 <input type="name" class="form-control" id="episodes" name="episodes" value="{{ old('episodes') }}">
             </div>
         </div>

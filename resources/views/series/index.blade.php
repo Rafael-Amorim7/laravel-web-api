@@ -1,5 +1,5 @@
 <x-layout title="Series">
-    <a href="{{ route('series.create') }}" class="btn btn-dark mb-2">Adicionar</a>
+    <a href="{{ route('series.create') }}" class="btn btn-dark mb-2">Create</a>
 
     <ul class="list-group">
         @foreach ($series as $serie)
