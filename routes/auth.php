@@ -10,6 +10,9 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SeriesController;
+use App\Http\Controllers\SeasonsController;
+use App\Http\Controllers\EpisodesController;
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
@@ -56,4 +59,20 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
+
+
+    Route::get('/series/{series}/seasons', [SeasonsController::class, 'index'])
+    ->name('seasons.index');
+
+    Route::get('/seasons/{season}/episodes', [EpisodesController::class, 'index'])->name('episodes.index');
+    Route::post('/seasons/{season}/episodes', [EpisodesController::class, 'update'])->name('episodes.update');
+
 });
+
+    Route::get('/', function () {
+        return redirect('/series');
+    });
+
+    // https://laravel.com/docs/10.x/controllers#actions-handled-by-resource-controller
+    Route::resource('/series', SeriesController::class)
+        ->except(['show']);
