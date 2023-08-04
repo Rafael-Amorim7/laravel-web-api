@@ -69,10 +69,6 @@ Route::middleware('auth')->group(function () {
 
 });
 
-    Route::get('/', function () {
-        return redirect('/series');
-    });
-
     // https://laravel.com/docs/10.x/controllers#actions-handled-by-resource-controller
     Route::resource('/series', SeriesController::class)
         ->except(['show']);
