@@ -13,14 +13,17 @@ class SeriesCreated extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $seriesName;
-
     /**
      * Create a new message instance.
      */
-    public function __construct($seriesName)
+    public function __construct(
+        public string $seriesName,
+        public int $idSerie,
+        public int $Seasons,
+        public int $Episodes,
+    )
     {
-        $this->seriesName = $seriesName;
+        $this->subject = "Série $seriesName criada";
     }
 
     /**
