@@ -11,6 +11,6 @@ class SeasonsController extends Controller
     {
         $seasons = $series->seasons()->with('episodes')->get();
 
-        return view('seasons.index', compact('seasons', 'series'));
+        return view('seasons.index')->with('seasons', $seasons)->with('series', $series);
     }
 }
