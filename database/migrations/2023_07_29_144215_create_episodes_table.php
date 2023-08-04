@@ -16,9 +16,7 @@ return new class extends Migration
             $table->unsignedTinyInteger('number');
 
             $table->foreignId('season_id')->constrained()->onDelete('cascade');
-            //$table->unsignedBigInteger('season_id');
-            //$table->foreign('season_id')->references('id')->on('season');
-        });
+       });
     }
 
     /**
