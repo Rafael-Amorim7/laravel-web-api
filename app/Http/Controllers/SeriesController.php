@@ -28,18 +28,6 @@ class SeriesController extends Controller
     public function store(SeriesFormRequest $request){
        $series = $this->repository->add($request);
 
-        $userList = User::all();
-        foreach ($userList as $index => $user) {
-            $email = new SeriesCreated(
-                $series->name,
-                $series->id,
-                $request->season,
-                $request->episodes,
-            );
-            $when = now()->addSeconds($index * 5);
-            Mail::to($user)->later($when, $email);
-        }
-
         return to_route('series.index')
             ->with('mensagem.sucesso', "Series '{$series->name}' create successfully");
     }
