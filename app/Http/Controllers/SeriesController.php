@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\SeriesCreated as EventsSeriesCreated;
 use App\Http\Requests\SeriesFormRequest;
 use App\Models\Series;
-use App\Mail\SeriesCreated;
-use App\Models\User;
 use app\Repositories\SeriesRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 
 class SeriesController extends Controller
 {
@@ -16,7 +14,7 @@ class SeriesController extends Controller
 
     public function index(Request $request) {
        $series = Series::query()->orderBy('name')->get();
-        $mensagem = session('mensagem.sucesso');
+        $mensagem = session('mensagem');
 
         return view('series.index', compact(['series', 'mensagem']));
     }
@@ -28,8 +26,15 @@ class SeriesController extends Controller
     public function store(SeriesFormRequest $request){
        $series = $this->repository->add($request);
 
+       EventsSeriesCreated::dispatch(
+            $series->name,
+            $series->id,
+            $request->seasons,
+            $request->episodes,
+       );
+
         return to_route('series.index')
-            ->with('mensagem.sucesso', "Series '{$series->name}' create successfully");
+            ->with('mensagem', "Series '{$series->name}' create successfully");
     }
 
     public function destroy(Series $series) {
@@ -37,7 +42,7 @@ class SeriesController extends Controller
         $series->delete();
 
         return to_route('series.index')
-            ->with('mensagem.sucesso', "Series '{$series->name}' removed successfully");
+            ->with('mensagem', "Series '{$series->name}' removed successfully");
     }
 
     public function edit(Series $series) {
@@ -50,6 +55,6 @@ class SeriesController extends Controller
         $series->save();
 
         return to_route('series.index')
-            ->with('mensagem.sucesso', "Series '{$series->name}' successfully updated");
+            ->with('mensagem', "Series '{$series->name}' successfully updated");
     }
 }

@@ -12,7 +12,7 @@ class EpisodesController extends Controller
     {
         return view('episodes.index', [
             'episodes' => $season->episodes,
-            'mensagemSucesso' => session('mensagem.sucesso')
+            'mensagem' => session('mensagem')
         ]);
     }
 

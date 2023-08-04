@@ -1,4 +1,4 @@
-<x-layout title="Series">
+<x-layout title="Series" :mensagem="$mensagem">
     @auth
     <a href="{{ route('series.create') }}" class="btn btn-dark mb-2">Create</a>
     @endauth
