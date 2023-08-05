@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SeriesRequest;
 use App\Repositories\EloquentSeriesRepository;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 class SeriesController extends Controller
 {
@@ -51,7 +52,10 @@ class SeriesController extends Controller
         return $series;
     }
 
-    public function destroy(Series $series) {
+    public function destroy(Series $series, Authenticatable $user) {
+        if (!$user->tokenCan('series:delete')) {
+            return response()->json('Forbidden', 403);
+        }
         Series::destroy($series);
         return response()->noContent();
     }
