@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rules\File;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SeriesFormRequest extends FormRequest
@@ -23,6 +24,12 @@ class SeriesFormRequest extends FormRequest
     {
         return [
             'name' => 'required|min:3',
+            'cover' => [
+                'required',
+                File::image()
+                    ->types(['png', 'jpg', 'jpeg'])
+                    ->max(1024)
+            ],
         ];
     }
 
