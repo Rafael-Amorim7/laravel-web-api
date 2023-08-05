@@ -17,3 +17,5 @@ Route::get('/series/{series}/episodes', [SeriesController::class, 'episodes']);
 Route::post('/upload', [ImageUploadController::class, 'upload']);
 
 Route::get('/series/{series}/seasons', [SeasonsController::class, 'index']);
+
+Route::patch('/episodes/{episode}', [EpisodesController::class, 'watched']);
