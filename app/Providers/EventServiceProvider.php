@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Events\SeriesCreated;
+use App\Events\SeriesDestroy;
+use App\Listeners\DeleteCoverSeries;
 use App\Listeners\LogSeriesCreated;
 use App\Listeners\MailUsersAboutSeriesCreated;
 use Illuminate\Auth\Events\Registered;
@@ -24,7 +26,10 @@ class EventServiceProvider extends ServiceProvider
         SeriesCreated::class => [
             MailUsersAboutSeriesCreated::class,
             LogSeriesCreated::class,
-        ]
+        ],
+        SeriesDestroy::class => [
+            DeleteCoverSeries::class,
+        ],
     ];
 
     /**
