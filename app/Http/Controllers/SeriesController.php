@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\SeriesCreated as EventsSeriesCreated;
-use App\Http\Requests\SeriesFormRequest;
 use App\Models\Series;
-use app\Repositories\SeriesRepository;
 use Illuminate\Http\Request;
+use App\Events\SeriesDestroy;
+use app\Repositories\SeriesRepository;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+use App\Http\Requests\SeriesFormRequest;
+use App\Events\SeriesCreated as EventsSeriesCreated;
 
 class SeriesController extends Controller
 {
@@ -43,6 +46,9 @@ class SeriesController extends Controller
     public function destroy(Series $series) {
 
         $series->delete();
+        SeriesDestroy::dispatch(
+            $series->cover
+        );
 
         return to_route('series.index')
             ->with('mensagem', "Series '{$series->name}' removed successfully");
