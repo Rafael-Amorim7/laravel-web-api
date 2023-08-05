@@ -54,9 +54,9 @@ class SeriesController extends Controller
 
     public function destroy(Series $series, Authenticatable $user) {
         if (!$user->tokenCan('series:delete')) {
-            return response()->json('Forbidden', 403);
+            return response()->json([ 'message' => 'Forbidden' ], 403);
         }
-        Series::destroy($series);
+        $series->delete();
         return response()->noContent();
     }
 
