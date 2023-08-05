@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Series;
+use App\Models\Episode;
+use App\Models\Season;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SeriesRequest;
@@ -50,5 +52,10 @@ class SeriesController extends Controller
     public function destroy(Series $series) {
         Series::destroy($series);
         return response()->noContent();
+    }
+
+    public function episodes()
+    {
+        return $this->hasManyThrough(Episode::class, Season::class);
     }
 }

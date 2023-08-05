@@ -5,12 +5,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\SeriesController;
 use App\Http\Controllers\Api\SeasonsController;
 use App\Http\Controllers\Api\ImageUploadController;
+use App\Http\Controllers\Api\EpisodesController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
 Route::apiResource('/series', SeriesController::class);
+Route::get('/series/{series}/episodes', [SeriesController::class, 'episodes']);
 
 Route::post('/upload', [ImageUploadController::class, 'upload']);
 
