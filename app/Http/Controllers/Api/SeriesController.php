@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SeriesRequest;
 use App\Repositories\EloquentSeriesRepository;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class SeriesController extends Controller
 {
@@ -33,10 +34,15 @@ class SeriesController extends Controller
         return $seriesModel;
     }
 
-    public function update(Series $series, Request $request)
+    public function update(int $series, Request $request)
     {
-        $series->fill($request->all());
-        $series->save();
+        $series = Series::find($series);
+
+        if (!$series) {
+            return response()->json(['message' => 'Series not found.'], 404);
+        }
+
+        $series->update($request->all());
 
         return $series;
     }
