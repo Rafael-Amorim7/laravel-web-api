@@ -18,7 +18,7 @@ class SeriesDestroy
      * Create a new event instance.
      */
     public function __construct(
-        public readonly string $seriesCoverPath,
+        public readonly string|null $seriesCoverPath,
     )
     {
         //
