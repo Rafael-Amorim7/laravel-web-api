@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SeriesRequest;
 use App\Models\Series;
-use Illuminate\Http\Request;
 
 class SeriesController extends Controller
 {
@@ -14,8 +13,9 @@ class SeriesController extends Controller
         return Series::all();
     }
 
-    public function storage(SeriesRequest)
+    public function store(SeriesRequest $request)
     {
-
+        return response()
+            ->json(Series::create($request->all()), 201);
     }
 }

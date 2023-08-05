@@ -24,12 +24,12 @@ class SeriesRequest extends FormRequest
     {
         return [
             'name' => 'required|min:3',
-            'cover' => [
-                'required',
-                File::image()
-                    ->types(['png', 'jpg', 'jpeg'])
-                    ->max(1024)
-            ],
+            //'cover' => [
+            //    'required',
+            //    File::image()
+            //        ->types(['png', 'jpg', 'jpeg'])
+            //        ->max(1024)
+            //],
         ];
     }
 
