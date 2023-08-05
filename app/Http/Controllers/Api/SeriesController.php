@@ -54,8 +54,14 @@ class SeriesController extends Controller
         return response()->noContent();
     }
 
-    public function episodes()
+    public function episodes(int $series)
     {
-        return $this->hasManyThrough(Episode::class, Season::class);
+        $series = Series::find($series);
+
+        if (!$series) {
+            return response()->json(['message' => 'Series not found.'], 404);
+        }
+
+        return $series->episodes;
     }
 }
