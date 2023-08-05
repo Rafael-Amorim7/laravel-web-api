@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Series;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SeriesRequest;
 use App\Repositories\EloquentSeriesRepository;
@@ -27,4 +28,16 @@ class SeriesController extends Controller
         return Series::whereId($series)->with('seasons.episodes')->first();
     }
 
+    public function update(Series $series, Request $request)
+    {
+        $series->fill($request->all());
+        $series->save();
+
+        return $series;
+    }
+
+    public function destroy(Series $series) {
+        Series::destroy($series);
+        return response()->noContent();
+    }
 }
