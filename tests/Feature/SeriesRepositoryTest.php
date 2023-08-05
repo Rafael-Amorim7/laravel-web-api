@@ -4,7 +4,7 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\Repositories\EloquentSeriesRepository;
-use App\Http\Requests\SeriesFormRequest;
+use App\Http\Requests\SeriesRequest;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -14,7 +14,7 @@ class SeriesRepositoryTest extends TestCase
     public function test_when_create_series_should_also_create_its_seasons_and_episodes(): void
     {
         $repository = $this->app->make(EloquentSeriesRepository::class);
-        $request = new SeriesFormRequest([
+        $request = new SeriesRequest([
             'name' => 'Series Name',
             'seasons' => 1,
             'episodes' => 1,

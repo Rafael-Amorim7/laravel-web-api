@@ -8,7 +8,7 @@ use App\Events\SeriesDestroy;
 use app\Repositories\SeriesRepository;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
-use App\Http\Requests\SeriesFormRequest;
+use App\Http\Requests\SeriesRequest;
 use App\Events\SeriesCreated as EventsSeriesCreated;
 
 class SeriesController extends Controller
@@ -26,7 +26,7 @@ class SeriesController extends Controller
         return view('series.create');
     }
 
-    public function store(SeriesFormRequest $request){
+    public function store(SeriesRequest $request){
 
        $request->coverPath = $request->file('cover')
             ->store('series_cover', 'public');
@@ -59,7 +59,7 @@ class SeriesController extends Controller
             ->with('series', $series);
     }
 
-    public function update(Series $series, SeriesFormRequest $request){
+    public function update(Series $series, SeriesRequest $request){
         $series->fill($request->all());
         $series->save();
 
