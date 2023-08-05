@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Series extends Model
 {
     use HasFactory;
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'cover'];
     //protected $with = ['seasons']; // Sempre que consulta as Series tambem puxa as temporadas. Isso nao eh feito por padrao devido a Lazy Loading
 
     public function seasons() {
