@@ -24,6 +24,8 @@ class SeriesRequest extends FormRequest
     {
         return [
             'name' => 'required|min:3',
+            'seasons' => 'required|numeric',
+            'episodes' => 'required|numeric',
             //'cover' => [
             //    'required',
             //    File::image()
