@@ -3,13 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Series;
-use App\Models\Episode;
-use App\Models\Season;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SeriesRequest;
 use App\Repositories\EloquentSeriesRepository;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class SeriesController extends Controller
 {
@@ -33,12 +30,12 @@ class SeriesController extends Controller
 
     public function show(int $series)
     {
-        $seriesModel = Series::with('seasons.episodes')->find($series);
-        if ($seriesModel === null) {
+        $series = Series::find($series);
+        if ($series === null) {
             return response()->json(['message' => 'Series not found'], 404);
         }
 
-        return $seriesModel;
+        return $series;
     }
 
     public function update(int $series, Request $request)

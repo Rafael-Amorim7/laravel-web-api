@@ -10,7 +10,7 @@ class SeasonsController extends Controller
 {
     public function index(int $series)
     {
-        $series = Series::find($series);
+        $series = Series::with('seasons.episodes')->find($series);
         if ($series === null) {
             return response()->json(['message' => 'Seasons not found'], 404);
         }
