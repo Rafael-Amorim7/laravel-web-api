@@ -13,7 +13,7 @@ class ImageUploadController extends Controller
             ->store('series_cover', 'public');
 
         if ($image_uploaded){
-            return response()->json(['data' => 'Image uploaded successfully at series_cover/'.$image_uploaded], 200);
+            return response()->json(['data' => 'Image uploaded successfully at public/storage/'.$image_uploaded], 200);
         }
         return response()->json(['data' => 'Failed to upload image'], 400);
     }
