@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\SeriesController;
 use App\Http\Controllers\Api\SeasonsController;
 use App\Http\Controllers\Api\ImageUploadController;
 use App\Http\Controllers\Api\EpisodesController;
+use App\Http\Controllers\Auth\AuthenticatedTokenAPIController;
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/series', SeriesController::class);
@@ -19,15 +20,4 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('/episodes/{episode}', [EpisodesController::class, 'watched']);
 });
 
-Route::post('/login', function (Request $request) {
-    $credentials = $request->only(['email', 'password']);
-    if (Auth::attempt($credentials) === false) {
-        return response()->json('Unauthorized', 401);
-    }
-
-    $user = Auth::user();
-    $user->tokens()->delete();
-    $token = $user->createToken('token', ['is_admin']);
-
-    return response()->json($token->plainTextToken);
-});
+Route::post('/login', [AuthenticatedTokenAPIController::class, 'login']);
